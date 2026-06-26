@@ -50,9 +50,10 @@ def create(args):
     vol = int(_opt(args, "--vol", "90"))
     gpus = _opt(args, "--gpu", "")
     gpu_ids = [g.strip() for g in gpus.split(",")] if gpus else GPUS
+    image = _opt(args, "--image", IMAGE)
     pk = _pubkey()
     body = {"cloudType": os.environ.get("RUNPOD_CLOUD_TYPE", "SECURE"),
-            "computeType": "GPU", "name": name, "imageName": IMAGE,
+            "computeType": "GPU", "name": name, "imageName": image,
             "gpuCount": 1, "gpuTypeIds": gpu_ids, "gpuTypePriority": "availability",
             "containerDiskInGb": disk, "volumeInGb": vol, "volumeMountPath": "/workspace",
             "ports": ["22/tcp", "8888/http"], "supportPublicIp": True,
