@@ -1,0 +1,11 @@
+data/
+*.ply
+*.sog
+*.mp4
+*.webm
+*.mkv
+*.MOV
+__pycache__/
+.DS_Store
+*.log
+.gstack/
