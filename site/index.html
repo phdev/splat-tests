@@ -614,12 +614,14 @@
                     b.textContent = s.label;
                     const active = s.id === cur;
                     b.style.cssText = 'cursor:pointer;border:0;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600;color:' + (active ? '#1a1a1a' : '#fff') + ';background:' + (active ? '#fff' : 'rgba(255,255,255,.18)') + ';-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:background .15s';
+                    b.style.display = 'none'; // shown only once the scene's SOG is confirmed present
                     if (!active) {
                         b.onmouseenter = () => { b.style.background = 'rgba(255,255,255,.32)'; };
                         b.onmouseleave = () => { b.style.background = 'rgba(255,255,255,.18)'; };
                     }
                     b.onclick = () => { location.href = '?scene=' + s.id; };
                     wrap.appendChild(b);
+                    fetch(s.file, { method: 'HEAD' }).then((r) => { if (r.ok) b.style.display = 'inline-block'; }).catch(() => {});
                 });
             });
         </script>
