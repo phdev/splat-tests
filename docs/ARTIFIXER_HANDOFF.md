@@ -13,7 +13,7 @@ The H100 pod below was deleted to stop billing:
 rebuild with `~/splat-tests/scripts/install_artifixer.sh`.
 
 ## Active restart: 2026-06-26
-A fresh H100 pod was launched for the restarted run:
+A fresh H100 pod was launched for the restarted run and has now been deleted:
 - Pod id: **`89kxgxx2jc37kn`**
 - SSH:
   ```bash
@@ -22,14 +22,34 @@ A fresh H100 pod was launched for the restarted run:
   ```
 - Image: `runpod/pytorch:1.0.7-cu1281-torch291-ubuntu2204`
 - Disk/volume: `--disk 150 --vol 180`; root now has 150 GB available.
-- Delete when finished:
-  `python3 ~/splat-tests/scripts/runpod_pod.py delete 89kxgxx2jc37kn`
+- Deleted after completion:
+  `python3 ~/splat-tests/scripts/runpod_pod.py delete 89kxgxx2jc37kn` returned
+  `DELETED 89kxgxx2jc37kn (status 204)`.
 
-Bootstrap is running on the pod via `/workspace/bootstrap_artifixer.sh` with logs:
+Completion notes:
+- COLMAP registered **87/87** frames on the fresh pod.
+- `prepare` completed after rerunning the metric-scale phase with cuDNN SDPA
+  disabled; metric scale was `4.353987`.
+- Default H100 attention paths were unusable in this image: FA3 was skipped
+  because its build was hundreds of CUDA targets, and FA4 failed at runtime in
+  CuTe with `fmax() takes 2 positional arguments...`. The successful inference
+  run monkey-patched `list_flash_attention_impls()` to return `[]`, used
+  `--attention_backend native`, `--inference_pipeline bidirectional`,
+  `--bidirectional_chunk_size 11`, and `--max_neighbors_per_encode 1`.
+- ArtiFixer inference produced 10 corrected held-out frames. `run_artifixer3d`
+  distilled them into a 30k 3DGRUT checkpoint, rendered 87 frames, and exported
+  `/workspace/citadel_artifixer3d_30000.ply`.
+- The exported PLY had extreme coordinate outliers. The deployed SOG was built
+  from a cleaned local PLY using `scripts/despike_ply.py` with the 1st-99th
+  percentile position box and glint filtering disabled.
+- The 4th scene is now `citadel-af` / `citadel_af.sog` / `citadel_af.json`
+  labeled **Citadel · ArtiFixer**.
+
+The fresh-pod run used `/workspace/bootstrap_artifixer.sh` with logs:
 `/workspace/bootstrap.log`, `/workspace/install.log`, `/workspace/ckpt_download.log`,
 and `/workspace/colmap.log`. The image has CUDA under `/usr/local/cuda-12.8` but
-does not put `nvcc` on PATH by default, so all remote scripts export:
-`CUDA_HOME=/usr/local/cuda-12.8` and prepend `$CUDA_HOME/bin`.
+does not put `nvcc` on PATH by default, so all remote scripts exported:
+`CUDA_HOME=/usr/local/cuda-12.8` and prepended `$CUDA_HOME/bin`.
 
 Last observed ArtiFixer state before deletion:
 - Original `prepare` failed after 3DGRUT training/render/metric-scale because the
