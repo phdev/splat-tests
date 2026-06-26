@@ -1,11 +1,14 @@
 #!/bin/bash
 # Robust pod-side COLMAP (capped threads — the 62GB container OOM-kills default
 # 128-thread CPU SIFT) + Inria 3DGS. Explicit checks (Inria convert.py masks
-# COLMAP failure via exit-code truncation). Dataset at /workspace/ed/input/*.jpg.
+# COLMAP failure via exit-code truncation). Parameterized by dataset dir:
+#   DS=<name> ITERS=30000 NT=16 bash pod_machu.sh   (frames at /workspace/$DS/input/*.jpg)
 set -uo pipefail
-cd /workspace/ed
+DS="${DS:-ed}"
+cd "/workspace/$DS"
 NT="${NT:-16}"
 ITERS="${ITERS:-30000}"
+NIMG=$(ls input | wc -l)
 log(){ echo "[$(date +%H:%M:%S)] $*"; }
 
 log "PIN_NUMPY (<2 for torch 2.1 ABI)"
@@ -14,7 +17,7 @@ pip install -q "numpy<2" >/workspace/np.log 2>&1 || log NUMPY_WARN
 rm -rf distorted sparse images output
 mkdir -p distorted/sparse
 
-log "FEAT (nt=$NT)"
+log "FEAT (nt=$NT, imgs=$NIMG)"
 colmap feature_extractor --database_path distorted/database.db --image_path input \
   --ImageReader.single_camera 1 --ImageReader.camera_model OPENCV \
   --SiftExtraction.use_gpu 0 --SiftExtraction.num_threads "$NT" --SiftExtraction.max_image_size 1920 \
@@ -30,7 +33,7 @@ colmap mapper --database_path distorted/database.db --image_path input \
   --output_path distorted/sparse --Mapper.num_threads "$NT" \
   >map.log 2>&1 || { log MAP_FAIL; tail -8 map.log; exit 1; }
 
-# pick the largest sub-model (mapper may fragment a cut-up montage into several)
+# pick the largest sub-model (mapper may fragment into several)
 BEST=""; BESTN=0
 for d in distorted/sparse/*/; do
   [ -f "$d/cameras.bin" ] || continue
@@ -40,18 +43,18 @@ for d in distorted/sparse/*/; do
   if [ "$n" -gt "$BESTN" ]; then BESTN=$n; BEST=$d; fi
 done
 [ -n "$BEST" ] || { log NO_MODEL; exit 1; }
-log "BEST_MODEL=$BEST REGISTERED=$BESTN of 169"
+log "BEST_MODEL=$BEST REGISTERED=$BESTN of $NIMG"
 
 log "UNDISTORT"
 colmap image_undistorter --image_path input --input_path "${BEST%/}" \
-  --output_path /workspace/ed --output_type COLMAP \
+  --output_path "/workspace/$DS" --output_type COLMAP \
   >undist.log 2>&1 || { log UNDIST_FAIL; tail -8 undist.log; exit 1; }
 mkdir -p sparse/0 && mv sparse/*.bin sparse/0/ 2>/dev/null
 [ -f sparse/0/cameras.bin ] || { log LAYOUT_FAIL; ls -R sparse; exit 1; }
 log "DATASET_READY images=$(ls images | wc -l) sparse0=$(ls sparse/0)"
 
 log "TRAIN iters=$ITERS"
-python3 /workspace/gs/train.py -s /workspace/ed -m /workspace/ed/output \
+python3 /workspace/gs/train.py -s "/workspace/$DS" -m "/workspace/$DS/output" \
   --iterations "$ITERS" --test_iterations "$ITERS" --save_iterations "$ITERS" \
   >train.log 2>&1 || { log TRAIN_FAIL; tail -30 train.log; exit 1; }
 
