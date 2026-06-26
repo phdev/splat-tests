@@ -6,6 +6,32 @@ run NVIDIA **ArtiFixer** (SIGGRAPH 2026) on an H100 to gap-fill/extend the citad
 splat, then add the result as a 4th scene in the viewer. The hard part (building
 ArtiFixer's environment) is **already done**.
 
+## Update: 2026-06-26
+The H100 pod below was deleted to stop billing:
+`python3 ~/splat-tests/scripts/runpod_pod.py delete 5kafrg3yi0euq1` returned
+`DELETED 5kafrg3yi0euq1 (status 204)`. Resume this bonus path on a fresh H100 and
+rebuild with `~/splat-tests/scripts/install_artifixer.sh`.
+
+Last observed ArtiFixer state before deletion:
+- Original `prepare` failed after 3DGRUT training/render/metric-scale because the
+  Qwen captioning model download filled the 60 GB container disk
+  (`RuntimeError: ... No space left on device`).
+- A manual workaround created a valid zero-prompt
+  `/workspace/af-prep/citadel/captions/citadel/caption.h5` and reran
+  `prepare_colmap_artifixer_inputs --phases prepare,reconstruct,render,scale`,
+  producing `/workspace/af-prep/citadel/split.json` without retraining.
+- `run_inference --render_trajectory all_frames` with the default `kv_cache`
+  pipeline OOMed on the H100 by trying to encode all 87 frames in one item.
+- A lower-memory retry was launched with
+  `--inference_pipeline bidirectional --bidirectional_chunk_size 21
+  --max_neighbors_per_encode 1 --save_frame_outputs_only`, but the pod was deleted
+  before it completed.
+
+Recommended fresh-pod adjustment: use a larger container disk (for example 150 GB)
+or otherwise force Hugging Face/Xet temp/cache writes onto the `/workspace` volume.
+This was not fully confirmed before deletion; the symptom was the Qwen/HF cache
+filling the container root filesystem.
+
 ## What's already DONE (do not redo)
 - Code repo: `~/splat-tests` → `github.com/phdev/splat-tests` (committed/pushed).
 - Live viewer: **https://phdev.github.io/machu-picchu-splat/** — scene switcher with
