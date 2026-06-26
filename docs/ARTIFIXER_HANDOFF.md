@@ -12,6 +12,25 @@ The H100 pod below was deleted to stop billing:
 `DELETED 5kafrg3yi0euq1 (status 204)`. Resume this bonus path on a fresh H100 and
 rebuild with `~/splat-tests/scripts/install_artifixer.sh`.
 
+## Active restart: 2026-06-26
+A fresh H100 pod was launched for the restarted run:
+- Pod id: **`89kxgxx2jc37kn`**
+- SSH:
+  ```bash
+  ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+      -p 14533 root@216.243.220.222
+  ```
+- Image: `runpod/pytorch:1.0.7-cu1281-torch291-ubuntu2204`
+- Disk/volume: `--disk 150 --vol 180`; root now has 150 GB available.
+- Delete when finished:
+  `python3 ~/splat-tests/scripts/runpod_pod.py delete 89kxgxx2jc37kn`
+
+Bootstrap is running on the pod via `/workspace/bootstrap_artifixer.sh` with logs:
+`/workspace/bootstrap.log`, `/workspace/install.log`, `/workspace/ckpt_download.log`,
+and `/workspace/colmap.log`. The image has CUDA under `/usr/local/cuda-12.8` but
+does not put `nvcc` on PATH by default, so all remote scripts export:
+`CUDA_HOME=/usr/local/cuda-12.8` and prepend `$CUDA_HOME/bin`.
+
 Last observed ArtiFixer state before deletion:
 - Original `prepare` failed after 3DGRUT training/render/metric-scale because the
   Qwen captioning model download filled the 60 GB container disk
