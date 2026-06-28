@@ -1,0 +1,221 @@
+{
+  "method": "splat-transform render from trained PLY",
+  "note": "Preferred output is rendered from the trained PLY with @playcanvas/splat-transform. If renderer setup fails, this script falls back to annotated source-frame proxy images and records the error.",
+  "render_metadata": {
+    "method": "splat-transform render from trained PLY",
+    "splat": "exports/close/close.ply",
+    "vertex_count": 539850,
+    "bounds": {
+      "min": [
+        -41.55003356933594,
+        -33.688209533691406,
+        -2.2889962196350098
+      ],
+      "max": [
+        188.67660522460938,
+        75.75190734863281,
+        279.8602600097656
+      ],
+      "center": [
+        73.56328582763672,
+        21.031848907470703,
+        138.7856318950653
+      ],
+      "radius": 190.12472694548342
+    },
+    "views": {
+      "hero": {
+        "camera": [
+          -4.954,
+          -1.129,
+          -1.646
+        ],
+        "look_at": [
+          0.298,
+          -4.416,
+          98.162
+        ],
+        "fov": 35.0
+      },
+      "left": {
+        "camera": [
+          -2.628189921650788,
+          -1.129,
+          -1.7683865274475998
+        ],
+        "look_at": [
+          2.6238100783492118,
+          -4.416,
+          98.0396134725524
+        ],
+        "fov": 35.0
+      },
+      "right": {
+        "camera": [
+          -7.279810078349211,
+          -1.129,
+          -1.5236134725524
+        ],
+        "look_at": [
+          -2.0278100783492117,
+          -4.416,
+          98.28438652744761
+        ],
+        "fov": 35.0
+      },
+      "up": {
+        "camera": [
+          -4.95112654272746,
+          0.5336924173718196,
+          -1.5913933694863558
+        ],
+        "look_at": [
+          0.30087345727253983,
+          -2.7533075826281808,
+          98.21660663051365
+        ],
+        "fov": 35.0
+      },
+      "down": {
+        "camera": [
+          -4.95687345727254,
+          -2.7916924173718196,
+          -1.700606630513644
+        ],
+        "look_at": [
+          0.29512654272746014,
+          -6.07869241737182,
+          98.10739336948636
+        ],
+        "fov": 35.0
+      },
+      "forward": {
+        "camera": [
+          -4.849153947757403,
+          -1.1946186164739938,
+          0.34647425404209775
+        ],
+        "look_at": [
+          0.40284605224259673,
+          -4.481618616473995,
+          100.1544742540421
+        ],
+        "fov": 35.0
+      },
+      "back": {
+        "camera": [
+          -5.058846052242597,
+          -1.0633813835260062,
+          -3.6384742540420976
+        ],
+        "look_at": [
+          0.19315394775740324,
+          -4.350381383526006,
+          96.16952574595791
+        ],
+        "fov": 35.0
+      },
+      "source_match": {
+        "camera": [
+          -4.954,
+          -1.129,
+          -1.646
+        ],
+        "look_at": [
+          0.298,
+          -4.416,
+          98.162
+        ],
+        "fov": 35.0
+      },
+      "yaw_01": {
+        "camera": [
+          -4.954,
+          -1.129,
+          -1.646
+        ],
+        "look_at": [
+          -50.33661543941756,
+          -3.97562550223945,
+          87.41768326162993
+        ],
+        "fov": 35.0
+      },
+      "yaw_02": {
+        "camera": [
+          -4.954,
+          -1.129,
+          -1.646
+        ],
+        "look_at": [
+          -25.727135134813054,
+          -4.303998191012168,
+          96.12117741736164
+        ],
+        "fov": 35.0
+      },
+      "yaw_03": {
+        "camera": [
+          -4.954,
+          -1.129,
+          -1.646
+        ],
+        "look_at": [
+          0.29800000000000004,
+          -4.416,
+          98.162
+        ],
+        "fov": 35.0
+      },
+      "yaw_04": {
+        "camera": [
+          -4.954,
+          -1.129,
+          -1.646
+        ],
+        "look_at": [
+          25.965220014153424,
+          -4.303998191012168,
+          93.40107232315704
+        ],
+        "fov": 35.0
+      },
+      "yaw_05": {
+        "camera": [
+          -4.954,
+          -1.129,
+          -1.646
+        ],
+        "look_at": [
+          49.5253462807693,
+          -3.97562550223945,
+          82.1628437402046
+        ],
+        "fov": 35.0
+      }
+    }
+  },
+  "headbox": {
+    "horizontal_m": 0.35,
+    "vertical_m": 0.25,
+    "forward_back_m": 0.3,
+    "metric_scale": "arbitrary_if_metric_scale_unavailable"
+  },
+  "views": {
+    "hero": "eval/close/headbox_renders/hero.png",
+    "left": "eval/close/headbox_renders/left.png",
+    "right": "eval/close/headbox_renders/right.png",
+    "up": "eval/close/headbox_renders/up.png",
+    "down": "eval/close/headbox_renders/down.png",
+    "forward": "eval/close/headbox_renders/forward.png",
+    "back": "eval/close/headbox_renders/back.png",
+    "source_match": "eval/close/headbox_renders/source_match.png",
+    "yaw_01": "eval/close/headbox_renders/yaw_01.png",
+    "yaw_02": "eval/close/headbox_renders/yaw_02.png",
+    "yaw_03": "eval/close/headbox_renders/yaw_03.png",
+    "yaw_04": "eval/close/headbox_renders/yaw_04.png",
+    "yaw_05": "eval/close/headbox_renders/yaw_05.png"
+  },
+  "contact_sheet": "eval/close/contact_sheet.png",
+  "viewer_settings": "site/close.json"
+}

@@ -1,9 +1,10 @@
 #!/bin/bash
 # Fresh-pod: full setup (apt colmap + clone Inria 3DGS + build rasterizer) THEN
 # robust COLMAP (capped threads — 62GB container OOM-kills default 128) + train.
-#   DS=<name> ITERS=30000 NT=16 bash pod_full.sh   (frames at /workspace/$DS/input/*.jpg)
+#   DS=<name> ITERS=30000 NT=16 MATCHER=exhaustive bash pod_full.sh
+#   (frames at /workspace/$DS/input/*.jpg)
 set -uo pipefail
-DS="${DS:-ed}"; NT="${NT:-16}"; ITERS="${ITERS:-30000}"
+DS="${DS:-ed}"; NT="${NT:-16}"; ITERS="${ITERS:-30000}"; MATCHER="${MATCHER:-exhaustive}"; SEQ_OVERLAP="${SEQ_OVERLAP:-10}"
 export DEBIAN_FRONTEND=noninteractive
 export TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST:-8.0;8.6;8.9+PTX}"
 log(){ echo "[$(date +%H:%M:%S)] $*"; }
@@ -25,9 +26,15 @@ colmap feature_extractor --database_path distorted/database.db --image_path inpu
   --ImageReader.single_camera 1 --ImageReader.camera_model OPENCV \
   --SiftExtraction.use_gpu 0 --SiftExtraction.num_threads "$NT" --SiftExtraction.max_image_size 1920 \
   >feat.log 2>&1 || { log FEAT_FAIL; tail -8 feat.log; exit 1; }
-log "MATCH (exhaustive)"
-colmap exhaustive_matcher --database_path distorted/database.db \
-  --SiftMatching.use_gpu 0 --SiftMatching.num_threads "$NT" >match.log 2>&1 || { log MATCH_FAIL; tail -8 match.log; exit 1; }
+log "MATCH ($MATCHER)"
+if [ "$MATCHER" = "sequential" ]; then
+  colmap sequential_matcher --database_path distorted/database.db \
+    --SiftMatching.use_gpu 0 --SiftMatching.num_threads "$NT" \
+    --SequentialMatching.overlap "$SEQ_OVERLAP" >match.log 2>&1 || { log MATCH_FAIL; tail -8 match.log; exit 1; }
+else
+  colmap exhaustive_matcher --database_path distorted/database.db \
+    --SiftMatching.use_gpu 0 --SiftMatching.num_threads "$NT" >match.log 2>&1 || { log MATCH_FAIL; tail -8 match.log; exit 1; }
+fi
 log "MAP"
 colmap mapper --database_path distorted/database.db --image_path input \
   --output_path distorted/sparse --Mapper.num_threads "$NT" >map.log 2>&1 || { log MAP_FAIL; tail -8 map.log; exit 1; }
