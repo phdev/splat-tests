@@ -1,0 +1,138 @@
+{
+  "schema": "github_pages_panos_v1",
+  "generated_at_utc": "2026-07-02T23:02:32Z",
+  "site_dir": "docs",
+  "site_dir_detection": "existing ./docs",
+  "panos_dir": "docs/panos",
+  "fullres_included": false,
+  "license_label": "licensed research asset; production usage depends on 360Cities license terms.",
+  "primary_source_type": "people_removed",
+  "primary_source_path": "assets/machu_picchu_panoramas/360cities_machu_picchu/cleaned/360cities_machu_picchu_people_removed_equirect.jpg",
+  "original_source_path": "assets/machu_picchu_panoramas/360cities_machu_picchu/original/360cities_machu_picchu_equirect.jpg",
+  "cleaned_source_path": "assets/machu_picchu_panoramas/360cities_machu_picchu/cleaned/360cities_machu_picchu_people_removed_equirect.jpg",
+  "primary_aliases": {
+    "preview_4096": {
+      "path": "assets/machu_picchu_pano_4096x2048.jpg",
+      "repo_path": "docs/panos/assets/machu_picchu_pano_4096x2048.jpg",
+      "width": 4096,
+      "height": 2048,
+      "size_bytes": 1910797
+    },
+    "preview_2048": {
+      "path": "assets/machu_picchu_pano_2048x1024.jpg",
+      "repo_path": "docs/panos/assets/machu_picchu_pano_2048x1024.jpg",
+      "width": 2048,
+      "height": 1024,
+      "size_bytes": 460543
+    },
+    "thumbnail": {
+      "path": "assets/thumbnail.jpg",
+      "repo_path": "docs/panos/assets/thumbnail.jpg",
+      "width": 512,
+      "height": 256,
+      "size_bytes": 29888
+    }
+  },
+  "provenance": {
+    "source_url": "https://www.360cities.net/image/machu-picchu",
+    "scrape_date_utc": "2026-07-01T15:14:21+00:00",
+    "page_title": "Machu Picchu 360 Panorama | 360Cities",
+    "photographer": "Julius Sunpanoramas.com",
+    "listed_resolution_or_type": "10000x5000",
+    "copyright_or_license_text": "360Cities XML metadata: licensed=True, licenseable=True; user provided separate license note for local research scrape; confirm production usage separately.",
+    "user_license_note": "User stated a license was obtained/reviewed for this 360Cities asset.",
+    "cleaned_note": "Derivative pano created from perspective-face people masks; original pano is unchanged.",
+    "provenance_docs": [
+      "assets/machu_picchu_panoramas/360cities_machu_picchu/PROVENANCE.md",
+      "assets/machu_picchu_panoramas/360cities_machu_picchu/SCRAPE_REPORT.md",
+      "assets/machu_picchu_panoramas/360cities_machu_picchu/RECONSTRUCTION_VALIDATION.md",
+      "assets/machu_picchu_panoramas/360cities_machu_picchu/cleaned/360cities_machu_picchu_people_removed_equirect_provenance.json"
+    ],
+    "notes": [
+      "Asset label: licensed research asset; confirm production usage separately.",
+      "Research label: research feasibility only; not cleared for Supernatural production/commercial use.",
+      "Source URL: `https://www.360cities.net/image/machu-picchu`",
+      "Photographer: `Julius Sunpanoramas.com`",
+      "Detected copyright/license text: `360Cities XML metadata: licensed=True, licenseable=True; user provided separate license note for local research scrape; confirm production usage separately.`",
+      "User-provided license note: license reviewed/obtained for this asset; confirm production usage separately."
+    ]
+  },
+  "variants": [
+    {
+      "id": "original",
+      "label": "Original",
+      "source_type": "original",
+      "source_path": "assets/machu_picchu_panoramas/360cities_machu_picchu/original/360cities_machu_picchu_equirect.jpg",
+      "source_dimensions": {
+        "width": 10000,
+        "height": 5000
+      },
+      "preview_4096": {
+        "path": "assets/machu_picchu_pano_original_4096x2048.jpg",
+        "repo_path": "docs/panos/assets/machu_picchu_pano_original_4096x2048.jpg",
+        "width": 4096,
+        "height": 2048,
+        "size_bytes": 2096332
+      },
+      "preview_2048": {
+        "path": "assets/machu_picchu_pano_original_2048x1024.jpg",
+        "repo_path": "docs/panos/assets/machu_picchu_pano_original_2048x1024.jpg",
+        "width": 2048,
+        "height": 1024,
+        "size_bytes": 501794
+      },
+      "thumbnail": {
+        "path": "assets/machu_picchu_pano_original_thumbnail.jpg",
+        "repo_path": "docs/panos/assets/machu_picchu_pano_original_thumbnail.jpg",
+        "width": 512,
+        "height": 256,
+        "size_bytes": 31424
+      },
+      "fullres": null
+    },
+    {
+      "id": "people_removed",
+      "label": "People-removed",
+      "source_type": "people_removed",
+      "source_path": "assets/machu_picchu_panoramas/360cities_machu_picchu/cleaned/360cities_machu_picchu_people_removed_equirect.jpg",
+      "source_dimensions": {
+        "width": 10000,
+        "height": 5000
+      },
+      "preview_4096": {
+        "path": "assets/machu_picchu_pano_people_removed_4096x2048.jpg",
+        "repo_path": "docs/panos/assets/machu_picchu_pano_people_removed_4096x2048.jpg",
+        "width": 4096,
+        "height": 2048,
+        "size_bytes": 1910797
+      },
+      "preview_2048": {
+        "path": "assets/machu_picchu_pano_people_removed_2048x1024.jpg",
+        "repo_path": "docs/panos/assets/machu_picchu_pano_people_removed_2048x1024.jpg",
+        "width": 2048,
+        "height": 1024,
+        "size_bytes": 460543
+      },
+      "thumbnail": {
+        "path": "assets/machu_picchu_pano_people_removed_thumbnail.jpg",
+        "repo_path": "docs/panos/assets/machu_picchu_pano_people_removed_thumbnail.jpg",
+        "width": 512,
+        "height": 256,
+        "size_bytes": 29888
+      },
+      "fullres": null
+    }
+  ],
+  "related_reports": [
+    {
+      "label": "PANO_PEOPLE_CLEANUP_TEST.md",
+      "path": "spikes/mobile_vr_splat_feasibility/PANO_PEOPLE_CLEANUP_TEST.md",
+      "url": "https://github.com/phdev/splat-tests/blob/main/spikes/mobile_vr_splat_feasibility/PANO_PEOPLE_CLEANUP_TEST.md"
+    },
+    {
+      "label": "SPAG4D_CLEANED_FULLRES_SHARP360_TEST.md",
+      "path": "spikes/mobile_vr_splat_feasibility/SPAG4D_CLEANED_FULLRES_SHARP360_TEST.md",
+      "url": "https://github.com/phdev/splat-tests/blob/main/spikes/mobile_vr_splat_feasibility/SPAG4D_CLEANED_FULLRES_SHARP360_TEST.md"
+    }
+  ]
+}
