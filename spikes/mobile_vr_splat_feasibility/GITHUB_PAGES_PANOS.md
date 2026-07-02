@@ -5,12 +5,12 @@ licensed research asset; production usage depends on 360Cities license terms.
 ## Status
 
 - Status: `packaged`
-- Generated: `2026-07-02T23:02:32Z`
-- Site dir: `docs` (existing ./docs)
-- Panos page: `docs/panos/index.html`
-- Pano manifest: `docs/panos/panos.json`
+- Generated: `2026-07-02T23:04:55Z`
+- Site dir: `.` (GHP_VIEWER_DIR)
+- Panos page: `./panos/index.html`
+- Pano manifest: `./panos/panos.json`
 - Full-res included: `false`
-- Main-nav handling: `panos_link_already_present` in `docs/index.html`
+- Main-nav handling: `created_main_index` in `index.html`
 
 ## Source Pano Selected
 
@@ -24,15 +24,15 @@ licensed research asset; production usage depends on 360Cities license terms.
 
 ## Generated Preview Paths
 
-- Primary 4096 preview: `docs/panos/assets/machu_picchu_pano_4096x2048.jpg`
-- Primary 2048 preview: `docs/panos/assets/machu_picchu_pano_2048x1024.jpg`
-- Primary thumbnail: `docs/panos/assets/thumbnail.jpg`
-- Original 4096 preview: `docs/panos/assets/machu_picchu_pano_original_4096x2048.jpg`
-- Original 2048 preview: `docs/panos/assets/machu_picchu_pano_original_2048x1024.jpg`
-- Original thumbnail: `docs/panos/assets/machu_picchu_pano_original_thumbnail.jpg`
-- People-removed 4096 preview: `docs/panos/assets/machu_picchu_pano_people_removed_4096x2048.jpg`
-- People-removed 2048 preview: `docs/panos/assets/machu_picchu_pano_people_removed_2048x1024.jpg`
-- People-removed thumbnail: `docs/panos/assets/machu_picchu_pano_people_removed_thumbnail.jpg`
+- Primary 4096 preview: `./panos/assets/machu_picchu_pano_4096x2048.jpg`
+- Primary 2048 preview: `./panos/assets/machu_picchu_pano_2048x1024.jpg`
+- Primary thumbnail: `./panos/assets/thumbnail.jpg`
+- Original 4096 preview: `./panos/assets/machu_picchu_pano_original_4096x2048.jpg`
+- Original 2048 preview: `./panos/assets/machu_picchu_pano_original_2048x1024.jpg`
+- Original thumbnail: `./panos/assets/machu_picchu_pano_original_thumbnail.jpg`
+- People-removed 4096 preview: `./panos/assets/machu_picchu_pano_people_removed_4096x2048.jpg`
+- People-removed 2048 preview: `./panos/assets/machu_picchu_pano_people_removed_2048x1024.jpg`
+- People-removed thumbnail: `./panos/assets/machu_picchu_pano_people_removed_thumbnail.jpg`
 
 The un-gated package uses web-safe derivatives. Full-resolution copies are only written when `GHP_INCLUDE_FULLRES_PANO=1`.
 
