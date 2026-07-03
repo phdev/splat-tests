@@ -24,9 +24,11 @@ root = Path(sys.argv[1]).resolve()
 pano_root = root / "assets/machu_picchu_panoramas/360cities_machu_picchu"
 original_dir = pano_root / "original"
 cleaned_source = pano_root / "cleaned/360cities_machu_picchu_people_removed_equirect.jpg"
+cleaned_no_blur_source = pano_root / "cleaned/360cities_machu_picchu_people_removed_no_blur_equirect.jpg"
 provenance_md = pano_root / "PROVENANCE.md"
 source_metadata_json = pano_root / "provenance/source_metadata.json"
 cleaned_provenance_json = pano_root / "cleaned/360cities_machu_picchu_people_removed_equirect_provenance.json"
+cleaned_no_blur_provenance_json = pano_root / "cleaned/360cities_machu_picchu_people_removed_no_blur_equirect_provenance.json"
 spike_dir = root / "spikes/mobile_vr_splat_feasibility"
 license_label = "licensed research asset; production usage depends on 360Cities license terms."
 image_exts = {".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff"}
@@ -144,6 +146,8 @@ def github_blob_url(repo_rel_path: str) -> str:
 
 def report_links() -> list[dict]:
     reports = [
+        "spikes/mobile_vr_splat_feasibility/INPAINT_MASKS_TO_FINAL_SPLAT_TEST.md",
+        "spikes/mobile_vr_splat_feasibility/FINAL_CLEANED_PANO_SPLAT_TEST.md",
         "spikes/mobile_vr_splat_feasibility/PANO_PEOPLE_CLEANUP_TEST.md",
         "spikes/mobile_vr_splat_feasibility/SPAG4D_FULLRES_SHARP360_TEST.md",
         "spikes/mobile_vr_splat_feasibility/SPAG4D_CLEANED_FULLRES_SHARP360_TEST.md",
@@ -227,7 +231,7 @@ def cleanup_stale_fullres(assets_dir: Path) -> None:
 
 def provenance_notes() -> dict:
     metadata = load_json(source_metadata_json)
-    cleaned_metadata = load_json(cleaned_provenance_json)
+    cleaned_metadata = load_json(cleaned_no_blur_provenance_json) or load_json(cleaned_provenance_json)
     note_lines = []
     if provenance_md.is_file():
         for line in provenance_md.read_text().splitlines():
@@ -246,7 +250,7 @@ def provenance_notes() -> dict:
         "cleaned_note": cleaned_metadata.get("note"),
         "provenance_docs": [
             rel(path)
-            for path in [provenance_md, pano_root / "SCRAPE_REPORT.md", pano_root / "RECONSTRUCTION_VALIDATION.md", cleaned_provenance_json]
+            for path in [provenance_md, pano_root / "SCRAPE_REPORT.md", pano_root / "RECONSTRUCTION_VALIDATION.md", cleaned_no_blur_provenance_json, cleaned_provenance_json]
             if path.is_file()
         ],
         "notes": [line for line in note_lines if line],
@@ -706,7 +710,8 @@ def write_panos_page(path: Path) -> None:
         renderReports();
         renderProvenance();
         renderPackageDetails();
-        if (options.length) setSelected(options[0]);
+        const initial = options.find((option) => option.id === manifest.primary_source_type) || options[0];
+        if (initial) setSelected(initial);
       })
       .catch((error) => {
         errorEl.hidden = false;
@@ -819,6 +824,7 @@ def write_docs(manifest: dict, nav_note: dict) -> None:
         f"- Primary source path: `{manifest['primary_source_path']}`\n"
         f"- Original source path: `{manifest['original_source_path']}`\n"
         f"- Cleaned source path: `{manifest.get('cleaned_source_path') or 'not present'}`\n"
+        f"- No-blur cleaned source path: `{manifest.get('cleaned_no_blur_source_path') or 'not present'}`\n"
         f"- Source URL: `{manifest['provenance'].get('source_url')}`\n"
         f"- Photographer: `{manifest['provenance'].get('photographer')}`\n"
         f"- License note: `{manifest['provenance'].get('copyright_or_license_text')}`\n\n"
@@ -863,8 +869,9 @@ def main() -> int:
 
     original_source = find_original_source()
     has_cleaned = cleaned_source.is_file() and is_valid_equirect(cleaned_source)[0]
-    primary_source = cleaned_source if has_cleaned else original_source
-    primary_source_type = "people_removed" if has_cleaned else "original"
+    has_no_blur = cleaned_no_blur_source.is_file() and is_valid_equirect(cleaned_no_blur_source)[0]
+    primary_source = cleaned_no_blur_source if has_no_blur else cleaned_source if has_cleaned else original_source
+    primary_source_type = "people_removed_no_blur" if has_no_blur else "people_removed" if has_cleaned else "original"
 
     variants: list[dict] = []
     original_variant = add_variant(
@@ -893,7 +900,21 @@ def main() -> int:
             include_fullres=include_fullres,
             fullres_dest="machu_picchu_pano_people_removed_fullres.jpg",
         )
-    primary_variant = cleaned_variant if cleaned_variant is not None else original_variant
+    no_blur_variant = None
+    if has_no_blur:
+        no_blur_variant = add_variant(
+            variants,
+            variant_id="people_removed_no_blur",
+            label="People-removed no-blur",
+            source_type="people_removed_no_blur",
+            source_path=cleaned_no_blur_source,
+            panos_dir=panos_dir,
+            assets_dir=assets_dir,
+            basename="machu_picchu_pano_people_removed_no_blur",
+            include_fullres=include_fullres,
+            fullres_dest="machu_picchu_pano_people_removed_no_blur_fullres.jpg",
+        )
+    primary_variant = no_blur_variant if no_blur_variant is not None else cleaned_variant if cleaned_variant is not None else original_variant
     primary_aliases = copy_primary_aliases(primary_variant, panos_dir, assets_dir)
 
     generated_at = dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
@@ -909,6 +930,7 @@ def main() -> int:
         "primary_source_path": rel(primary_source),
         "original_source_path": rel(original_source),
         "cleaned_source_path": rel(cleaned_source) if has_cleaned else None,
+        "cleaned_no_blur_source_path": rel(cleaned_no_blur_source) if has_no_blur else None,
         "primary_aliases": primary_aliases,
         "provenance": provenance_notes(),
         "variants": variants,

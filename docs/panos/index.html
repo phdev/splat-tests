@@ -449,7 +449,8 @@
         renderReports();
         renderProvenance();
         renderPackageDetails();
-        if (options.length) setSelected(options[0]);
+        const initial = options.find((option) => option.id === manifest.primary_source_type) || options[0];
+        if (initial) setSelected(initial);
       })
       .catch((error) => {
         errorEl.hidden = false;

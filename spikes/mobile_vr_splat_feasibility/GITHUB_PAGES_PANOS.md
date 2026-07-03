@@ -5,19 +5,20 @@ licensed research asset; production usage depends on 360Cities license terms.
 ## Status
 
 - Status: `packaged`
-- Generated: `2026-07-02T23:04:55Z`
+- Generated: `2026-07-03T14:47:22Z`
 - Site dir: `.` (GHP_VIEWER_DIR)
 - Panos page: `./panos/index.html`
 - Pano manifest: `./panos/panos.json`
 - Full-res included: `false`
-- Main-nav handling: `created_main_index` in `index.html`
+- Main-nav handling: `panos_link_already_present` in `index.html`
 
 ## Source Pano Selected
 
-- Primary source type: `people_removed`
-- Primary source path: `assets/machu_picchu_panoramas/360cities_machu_picchu/cleaned/360cities_machu_picchu_people_removed_equirect.jpg`
+- Primary source type: `people_removed_no_blur`
+- Primary source path: `assets/machu_picchu_panoramas/360cities_machu_picchu/cleaned/360cities_machu_picchu_people_removed_no_blur_equirect.jpg`
 - Original source path: `assets/machu_picchu_panoramas/360cities_machu_picchu/original/360cities_machu_picchu_equirect.jpg`
 - Cleaned source path: `assets/machu_picchu_panoramas/360cities_machu_picchu/cleaned/360cities_machu_picchu_people_removed_equirect.jpg`
+- No-blur cleaned source path: `assets/machu_picchu_panoramas/360cities_machu_picchu/cleaned/360cities_machu_picchu_people_removed_no_blur_equirect.jpg`
 - Source URL: `https://www.360cities.net/image/machu-picchu`
 - Photographer: `Julius Sunpanoramas.com`
 - License note: `360Cities XML metadata: licensed=True, licenseable=True; user provided separate license note for local research scrape; confirm production usage separately.`
@@ -33,11 +34,16 @@ licensed research asset; production usage depends on 360Cities license terms.
 - People-removed 4096 preview: `./panos/assets/machu_picchu_pano_people_removed_4096x2048.jpg`
 - People-removed 2048 preview: `./panos/assets/machu_picchu_pano_people_removed_2048x1024.jpg`
 - People-removed thumbnail: `./panos/assets/machu_picchu_pano_people_removed_thumbnail.jpg`
+- People-removed no-blur 4096 preview: `./panos/assets/machu_picchu_pano_people_removed_no_blur_4096x2048.jpg`
+- People-removed no-blur 2048 preview: `./panos/assets/machu_picchu_pano_people_removed_no_blur_2048x1024.jpg`
+- People-removed no-blur thumbnail: `./panos/assets/machu_picchu_pano_people_removed_no_blur_thumbnail.jpg`
 
 The un-gated package uses web-safe derivatives. Full-resolution copies are only written when `GHP_INCLUDE_FULLRES_PANO=1`.
 
 ## Related Reports
 
+- [INPAINT_MASKS_TO_FINAL_SPLAT_TEST.md](https://github.com/phdev/splat-tests/blob/main/spikes/mobile_vr_splat_feasibility/INPAINT_MASKS_TO_FINAL_SPLAT_TEST.md)
+- [FINAL_CLEANED_PANO_SPLAT_TEST.md](https://github.com/phdev/splat-tests/blob/main/spikes/mobile_vr_splat_feasibility/FINAL_CLEANED_PANO_SPLAT_TEST.md)
 - [PANO_PEOPLE_CLEANUP_TEST.md](https://github.com/phdev/splat-tests/blob/main/spikes/mobile_vr_splat_feasibility/PANO_PEOPLE_CLEANUP_TEST.md)
 - [SPAG4D_CLEANED_FULLRES_SHARP360_TEST.md](https://github.com/phdev/splat-tests/blob/main/spikes/mobile_vr_splat_feasibility/SPAG4D_CLEANED_FULLRES_SHARP360_TEST.md)
 
