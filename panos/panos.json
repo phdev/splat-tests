@@ -1,6 +1,6 @@
 {
   "schema": "github_pages_panos_v1",
-  "generated_at_utc": "2026-07-03T14:47:22Z",
+  "generated_at_utc": "2026-07-03T17:59:38Z",
   "site_dir": ".",
   "site_dir_detection": "GHP_VIEWER_DIR",
   "panos_dir": "panos",
@@ -17,21 +17,21 @@
       "repo_path": "panos/assets/machu_picchu_pano_4096x2048.jpg",
       "width": 4096,
       "height": 2048,
-      "size_bytes": 2091449
+      "size_bytes": 2023715
     },
     "preview_2048": {
       "path": "assets/machu_picchu_pano_2048x1024.jpg",
       "repo_path": "panos/assets/machu_picchu_pano_2048x1024.jpg",
       "width": 2048,
       "height": 1024,
-      "size_bytes": 499951
+      "size_bytes": 477253
     },
     "thumbnail": {
       "path": "assets/thumbnail.jpg",
       "repo_path": "panos/assets/thumbnail.jpg",
       "width": 512,
       "height": 256,
-      "size_bytes": 31313
+      "size_bytes": 29390
     }
   },
   "provenance": {
@@ -42,7 +42,7 @@
     "listed_resolution_or_type": "10000x5000",
     "copyright_or_license_text": "360Cities XML metadata: licensed=True, licenseable=True; user provided separate license note for local research scrape; confirm production usage separately.",
     "user_license_note": "User stated a license was obtained/reviewed for this 360Cities asset.",
-    "cleaned_note": "No-blur people removal from existing non-blank people masks. Cleaned perspective faces are lossless PNG; the registered pano is encoded to the requested JPEG path.",
+    "cleaned_note": "No-blur people removal from expanded manual masks plus crop-level LaMa repair of foreground inpainting artifact. Cleaned perspective faces are lossless PNG; registered pano is encoded to JPEG.",
     "provenance_docs": [
       "assets/machu_picchu_panoramas/360cities_machu_picchu/PROVENANCE.md",
       "assets/machu_picchu_panoramas/360cities_machu_picchu/SCRAPE_REPORT.md",
@@ -138,21 +138,21 @@
         "repo_path": "panos/assets/machu_picchu_pano_people_removed_no_blur_4096x2048.jpg",
         "width": 4096,
         "height": 2048,
-        "size_bytes": 2091449
+        "size_bytes": 2023715
       },
       "preview_2048": {
         "path": "assets/machu_picchu_pano_people_removed_no_blur_2048x1024.jpg",
         "repo_path": "panos/assets/machu_picchu_pano_people_removed_no_blur_2048x1024.jpg",
         "width": 2048,
         "height": 1024,
-        "size_bytes": 499951
+        "size_bytes": 477253
       },
       "thumbnail": {
         "path": "assets/machu_picchu_pano_people_removed_no_blur_thumbnail.jpg",
         "repo_path": "panos/assets/machu_picchu_pano_people_removed_no_blur_thumbnail.jpg",
         "width": 512,
         "height": 256,
-        "size_bytes": 31313
+        "size_bytes": 29390
       },
       "fullres": null
     }

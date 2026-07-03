@@ -5,7 +5,7 @@ licensed research asset; production usage depends on 360Cities license terms.
 ## Status
 
 - Status: `packaged`
-- Generated: `2026-07-03T14:47:22Z`
+- Generated: `2026-07-03T17:59:38Z`
 - Site dir: `.` (GHP_VIEWER_DIR)
 - Panos page: `./panos/index.html`
 - Pano manifest: `./panos/panos.json`
